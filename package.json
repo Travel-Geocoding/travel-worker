@@ -1,0 +1,27 @@
+{
+  "name": "worker",
+  "version": "1.0.0",
+  "description": "Worker Server",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "db:new": "node ./scripts/create-database.js",
+    "db:create": "node ./node_modules/knex/bin/cli.js --knexfile db/knexfile.js migrate:make $migrationname",
+    "db:migrate": "node ./node_modules/knex/bin/cli.js --knexfile db/knexfile.js migrate:latest",
+    "db:delete": "node ./scripts/drop-database.js",
+    "db:reset": "npm run db:delete && npm run db:new && npm run db:migrate",
+    "redis:start": "docker container run --name travel-redis --publish 6379:6379 --detach --rm redis",
+    "redis:stop": "docker stop travel-redis"
+  },
+  "author": "Antoine Boileau",
+  "license": "ISC",
+  "dependencies": {
+    "bookshelf": "^0.13.3",
+    "bull": "^3.4.2",
+    "dotenv": "^6.0.0",
+    "hapi": "^17.5.1",
+    "hapi-pino": "^4.0.4",
+    "knex": "^0.13.0",
+    "pg": "^7.4.3"
+  }
+}

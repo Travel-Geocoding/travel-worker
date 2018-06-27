@@ -4,7 +4,7 @@
   "description": "Worker Server",
   "main": "server.js",
   "scripts": {
-    "test": "test",
+    "test": "NODE_ENV=test npm run db:migrate && NODE_ENV=test npx mocha --recursive --exit --reporter dot tests",
     "db:new": "node ./scripts/create-database.js",
     "db:create": "node ./node_modules/knex/bin/cli.js --knexfile db/knexfile.js migrate:make $migrationname",
     "db:migrate": "node ./node_modules/knex/bin/cli.js --knexfile db/knexfile.js migrate:latest",
@@ -23,5 +23,13 @@
     "hapi-pino": "^4.0.4",
     "knex": "^0.13.0",
     "pg": "^7.4.3"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^5.2.0",
+    "sinon": "^6.0.1",
+    "sinon-chai": "^3.2.0",
+    "sqlite3": "^4.0.1"
   }
 }

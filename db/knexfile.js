@@ -31,4 +31,17 @@ module.exports = {
     ssl: ('true' === process.env.DATABASE_SSL_ENABLED),
   },
 
+  test: {
+    client: 'sqlite3',
+    connection: {
+      filename: `${__dirname}/test.sqlite3`,
+    },
+    migrations: {
+      directory: `${__dirname}/migrations`,
+    },
+    seeds: {
+      directory: `${__dirname}/seeds`,
+    },
+    useNullAsDefault: true,
+  },
 };

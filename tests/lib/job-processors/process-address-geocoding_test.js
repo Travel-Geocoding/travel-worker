@@ -74,20 +74,20 @@ describe('Unit | Job Processors | Process Address Geocoding', () => {
       postalCode: '42110',
       municipality: 'FEURS',
     });
-    const expectedUpdateLocationObject = new Location({
+    const expectedUpdateObject = {
       id: 'C0470',
       latitude: '45.7430422',
       longitude: '4.224061799999999',
       matchType: 'RANGE_INTERPOLATED',
       matchedAddress: '10 Place Geoffroy Guichard, 42110 Feurs, France',
-    });
+    };
     const expectedAddressToGeocode = '10 PLACE GEOFFROY GUICHARD, 42110, FEURS';
 
     // when
     beforeEach(() => {
       GoogleMapClient.geocode.resolves(googleMapResult);
       LocationRepository.create.resolves(expectedCreationLocationObject);
-      LocationRepository.update.resolves(expectedUpdateLocationObject);
+      LocationRepository.update.resolves(expectedUpdateObject);
 
       promise = processAddressGeocoding(job);
     });
@@ -103,7 +103,7 @@ describe('Unit | Job Processors | Process Address Geocoding', () => {
     });
     it('should call to update the Location with the geodata in database', () => {
       return promise
-        .then(() => expect(LocationRepository.update).to.have.been.calledWith(expectedUpdateLocationObject));
+        .then(() => expect(LocationRepository.update).to.have.been.calledWith(expectedUpdateObject));
     });
   });
 
@@ -168,20 +168,20 @@ describe('Unit | Job Processors | Process Address Geocoding', () => {
       postalCode: '83150',
       municipality: 'BANDOL',
     });
-    const expectedUpdateLocationObject = new Location({
+    const expectedUpdateObject = {
       id: 'C8001',
       latitude: '43.1358763',
       longitude: '5.7537058',
       matchType: 'ROOFTOP',
       matchedAddress: '24 Rue de la République, 83150 Bandol, France',
-    });
+    };
     const expectedAddressToGeocode = 'CASINO SHOP, RUE GABRIEL PERI - RUE PONS ET 24 RUE DE LA REPUBL, 83150, BANDOL';
 
     // when
     beforeEach(() => {
       GoogleMapClient.geocode.resolves(googleMapResult);
       LocationRepository.create.resolves(expectedCreationLocationObject);
-      LocationRepository.update.resolves(expectedUpdateLocationObject);
+      LocationRepository.update.resolves(expectedUpdateObject);
 
       promise = processAddressGeocoding(job);
     });
@@ -197,7 +197,7 @@ describe('Unit | Job Processors | Process Address Geocoding', () => {
     });
     it('should call to update the Location with the geodata in database', () => {
       return promise
-        .then(() => expect(LocationRepository.update).to.have.been.calledWith(expectedUpdateLocationObject));
+        .then(() => expect(LocationRepository.update).to.have.been.calledWith(expectedUpdateObject));
     });
   });
 
@@ -230,17 +230,17 @@ describe('Unit | Job Processors | Process Address Geocoding', () => {
       postalCode: '83150',
       municipality: 'BANDOL',
     });
-    const expectedUpdateLocationObject = new Location({
+    const expectedUpdateObject = {
       id: 'C8001',
       matchType: 'ERROR - OVER_QUERY_LIMIT',
-    });
+    };
     const expectedAddressToGeocode = 'CASINO SHOP, RUE GABRIEL PERI - RUE PONS ET 24 RUE DE LA REPUBL, 83150, BANDOL';
 
     // when
     beforeEach(() => {
       GoogleMapClient.geocode.resolves(googleMapResult);
       LocationRepository.create.resolves(expectedCreationLocationObject);
-      LocationRepository.update.resolves(expectedUpdateLocationObject);
+      LocationRepository.update.resolves(expectedUpdateObject);
 
       promise = processAddressGeocoding(job);
     });
@@ -256,7 +256,7 @@ describe('Unit | Job Processors | Process Address Geocoding', () => {
     });
     it('should call to update the Location with the error in database', () => {
       return promise
-        .then(() => expect(LocationRepository.update).to.have.been.calledWith(expectedUpdateLocationObject));
+        .then(() => expect(LocationRepository.update).to.have.been.calledWith(expectedUpdateObject));
     });
   });
 
@@ -285,17 +285,17 @@ describe('Unit | Job Processors | Process Address Geocoding', () => {
       postalCode: '83150',
       municipality: 'BANDOL',
     });
-    const expectedUpdateLocationObject = new Location({
+    const expectedUpdateObject = {
       id: 'C8001',
       matchType: 'ERROR - Error: this is an error message',
-    });
+    };
     const expectedAddressToGeocode = 'CASINO SHOP, RUE GABRIEL PERI - RUE PONS ET 24 RUE DE LA REPUBL, 83150, BANDOL';
 
     // when
     beforeEach(() => {
       GoogleMapClient.geocode.rejects(googleMapClientError);
       LocationRepository.create.resolves(expectedCreationLocationObject);
-      LocationRepository.update.resolves(expectedUpdateLocationObject);
+      LocationRepository.update.resolves(expectedUpdateObject);
 
       promise = processAddressGeocoding(job);
     });

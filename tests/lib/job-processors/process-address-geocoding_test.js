@@ -302,15 +302,16 @@ describe('Unit | Job Processors | Process Address Geocoding', () => {
 
     // then
     it('should call to create the Location without geodata in database', () => {
-      return promise
+      return expect(promise).to.be.rejected
         .then(() => expect(LocationRepository.create).to.have.been.calledWith(expectedCreationLocationObject));
     });
     it('should call to googleClient to make geocoding request', () => {
-      return promise
+      return expect(promise).to.be.rejected
         .then(() => expect(GoogleMapClient.geocode).to.have.been.calledWith({ address: expectedAddressToGeocode }));
     });
     it('should call to update the Location with the error in database', () => {
-      return promise
+      return expect(promise).to.be.rejected
+
         .then(() => expect(LocationRepository.update).to.have.been.called);
     });
   });

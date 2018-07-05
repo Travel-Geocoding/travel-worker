@@ -1,16 +1,16 @@
 process.env.NUMBER_OF_CLOSEST_STORES_FOR_ROUTING = 2;
 
 const { expect, sinon } = require('../../test-helper');
+const processRouteForPoint = require('../../../lib/job-processors/process-routes-for-point');
 
 const Page = require('../../../lib/models/page');
 const LocationPaginationResult = require('../../../lib/models/location-pagination-result');
 const Location = require('../../../lib/models/location');
 const Route = require('../../../lib/models/route');
 
-const Job = require('../../../lib/job-manager/job');
 const JobLauncher = require('../../../lib/job-manager/job-launcher');
 const LocationRepository = require('../../../lib/repositories/location-repository');
-const processRouteForPoint = require('../../../lib/job-processors/process-routes-for-point');
+const Job = require('../../../lib/job-manager/job');
 
 describe('Unit | Job Processors | Routes for point', () => {
 
@@ -109,9 +109,11 @@ describe('Unit | Job Processors | Routes for point', () => {
       LocationRepository.listWithPagination.onFirstCall().resolves(firstPaginationResult);
       LocationRepository.listWithPagination.onSecondCall().resolves(secondPaginationResult);
 
-      promise = processRouteForPoint(Job.createRoutesForLocation({
-        location: location2,
-      }));
+      promise = processRouteForPoint({
+        data: {
+          location: location2,
+        },
+      });
     });
 
     // then

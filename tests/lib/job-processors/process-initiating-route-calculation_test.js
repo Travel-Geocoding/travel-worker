@@ -1,12 +1,12 @@
 const { expect, sinon } = require('../../test-helper');
+const processInitiatingRouteCalculation = require('../../../lib/job-processors/process-initiating-route-calculation');
 
 const Page = require('../../../lib/models/page');
 const LocationPaginationResult = require('../../../lib/models/location-pagination-result');
 const Location = require('../../../lib/models/location');
-const Job = require('../../../lib/job-manager/job');
 const JobLauncher = require('../../../lib/job-manager/job-launcher');
 const LocationRepository = require('../../../lib/repositories/location-repository');
-const processInitiatingRouteCalculation = require('../../../lib/job-processors/process-initiating-route-calculation');
+const Job = require('../../../lib/job-manager/job');
 
 describe('Unit | Job Processors | Initiating Route Calculation', () => {
 
